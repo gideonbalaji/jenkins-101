@@ -40,7 +40,6 @@ class TestSample(unittest.TestCase):
                 sh '''
                     cd myapp
                     . venv/bin/activate
-                    # Example: Running your fire-based CLI tool
                     python main.py --help
                 '''
                 // In a real scenario, you might use 'archiveArtifacts' here
