@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo 'Running unit tests...'
                 sh '''
-                    . venv/bin/activate
+                    . myapp/venv/bin/activate
                     # Replace with your test command (pytest, nose, etc.)
                     python -m unittest discover tests
                 '''
@@ -29,6 +29,7 @@ pipeline {
             steps {
                 echo 'Packaging and Delivering...'
                 sh '''
+                    cd myapp
                     . venv/bin/activate
                     # Example: Running your fire-based CLI tool
                     python main.py --help
