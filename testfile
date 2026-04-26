@@ -22,7 +22,14 @@ pipeline {
                     mkdir -p tests
                     # Replace with your test command (pytest, nose, etc.)
                     touch tests/__init__.py
-                    python -m unittest discover tests
+                    echo "import unittest
+class TestSample(unittest.TestCase):
+    def test_pass(self):
+        self.assertTrue(True)" > tests/test_basic.py
+
+            # Run discovery
+            python3 -m unittest discover -v tests
+        '''
                 '''
             }
         }
