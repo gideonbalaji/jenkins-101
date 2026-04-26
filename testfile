@@ -1,0 +1,54 @@
+pipeline {
+    agent { label 'docker-agent-python' }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Installing dependencies...'
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running unit tests...'
+                sh '''
+                    . venv/bin/activate
+                    # Replace with your test command (pytest, nose, etc.)
+                    python -m unittest discover tests
+                '''
+            }
+        }
+
+        stage('Deliver') {
+            steps {
+                echo 'Packaging and Delivering...'
+                sh '''
+                    . venv/bin/activate
+                    # Example: Running your fire-based CLI tool
+                    python main.py --help
+                '''
+                // In a real scenario, you might use 'archiveArtifacts' here
+                archiveArtifacts artifacts: 'dist/*', allowEmptyArchive: true
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            // Optional: delete the venv to save space
+            // deleteDir() 
+        }
+        success {
+            echo 'Build Successful!'
+        }
+        failure {
+            echo 'Build Failed. Checking logs...'
+        }
+    }
+}
