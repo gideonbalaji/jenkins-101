@@ -37,11 +37,21 @@ class TestSample(unittest.TestCase):
             steps {
                 echo 'Packaging and Delivering...'
                 sh '''
-                    cd myapp
-                    . venv/bin/activate
-                    ls -l main.py
-                    python main.py --help
-                    '''
+            TARGET_FILE=$(find . -name "main.py" | head -n 1)
+            
+            if [ -z "$TARGET_FILE" ]; then
+                echo "ERROR: main.py not found anywhere in the workspace!"
+                ls -R
+                exit 1
+            fi
+            
+            echo "Found main.py at: $TARGET_FILE"
+            
+            . myapp/venv/bin/activate || echo "No venv found, using system python"
+            
+            # 3. Run it using the discovered path
+            python3 "$TARGET_FILE" --help
+        '''
                 // In a real scenario, you might use 'archiveArtifacts' here
                 archiveArtifacts artifacts: 'dist/*', allowEmptyArchive: true
             }
