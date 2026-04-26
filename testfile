@@ -41,7 +41,7 @@ class TestSample(unittest.TestCase):
                     cd myapp
                     . venv/bin/activate
                     python main.py --help
-                '''
+                    '''
                 // In a real scenario, you might use 'archiveArtifacts' here
                 archiveArtifacts artifacts: 'dist/*', allowEmptyArchive: true
             }
