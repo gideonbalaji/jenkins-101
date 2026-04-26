@@ -39,6 +39,7 @@ class TestSample(unittest.TestCase):
                 sh '''
                     cd myapp
                     . venv/bin/activate
+                    ls -l main.py
                     python main.py --help
                     '''
                 // In a real scenario, you might use 'archiveArtifacts' here
