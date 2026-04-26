@@ -19,6 +19,7 @@ pipeline {
                 echo 'Running unit tests...'
                 sh '''
                     . myapp/venv/bin/activate
+                    mkdir -p tests
                     # Replace with your test command (pytest, nose, etc.)
                     touch tests/__init__.py
                     python -m unittest discover tests
