@@ -30,7 +30,6 @@ class TestSample(unittest.TestCase):
             # Run discovery
             python3 -m unittest discover -v tests
         '''
-                '''
             }
         }
 
